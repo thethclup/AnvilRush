@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+@theme {
+  --color-mythic-dark: #0a0502;
+  --color-mythic-darker: #050201;
+  --color-forge-orange: #ff4e00;
+  --color-forge-glow: #ff4e00;
+  --color-divine-gold: #fbbf24;
+  --color-divine-glow: #fbbf24;
+  --color-mystic-blue: #4facfe;
+  
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-mythic-darker);
+  color: #ffffff;
+  overflow: hidden; /* Since it's a game, prevent body scrolling */
+  touch-action: none; /* Prevent default touch actions like pinch-zoom, pull-to-refresh on mobile */
+  display: flex;
+  flex-direction: column;
+}
