@@ -21,6 +21,28 @@ async function startServer() {
       status: "active",
       description: "Active MCP server for Anvil Rush Orchestrator Agent",
       capabilities: ["anvil-mechanics", "rush-mode", "forging-automation"],
+      tools: [
+        {
+          name: "forge_item",
+          description: "Forges a new mythical item."
+        },
+        {
+          name: "get_run_status",
+          description: "Gets the current runner's statistics."
+        }
+      ],
+      prompts: [
+        {
+          name: "start_rush",
+          description: "Initiates a new rush sequence."
+        }
+      ],
+      resources: [
+        {
+          uri: "anvilrush://leaderboard",
+          name: "Global Leaderboard"
+        }
+      ],
       timestamp: new Date().toISOString()
     });
   });
