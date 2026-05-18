@@ -1,35 +1,32 @@
-# Mythic Anvil Rush
+# Anvil Rush Orchestrator
 
-Mythic Anvil Rush is an epic, fast-paced, and satisfying endless runner + forging hybrid game deployed on the Base network. You are a legendary **Mythic Blacksmith** running through dangerous mythic realms while forging powerful weapons and armor on the move.
+Anvil Rush is an epic, high-performance endless runner and forging hybrid game deployed on the Base network. You play as a legendary Mythic Blacksmith navigating dangerous mythic realms, forging weapons and armor on the move.
+
+The project features a specialized AI Agent (the Orchestrator) focused on warp racing mechanics, real-time automation, multi-track management, competitive optimization, and ecosystem coordination.
 
 ## 🚀 Features
 
-- **Endless Runner Mechanics:** Fast-paced action where the blacksmith runs automatically.
-- **Dynamic Forging:** Tap the anvil at the exact perfect time to generate legendary items that buff your score multiplayer and styling.
-- **Engaging Visuals & Sound:** Built using an Immersive UI logic, complete with dynamic bloom, canvas-based rendering, and epic thematic visuals.
-- **On-chain Integrations (ERC-8004/ERC-8021):** Users interact directly with an advanced AI Orchestrator that uses MCP. Player capabilities are recorded directly on-chain on Base Mainnet. Ensure wallet connections and SIWE signatures authenticate your interactions!
+- **Endless Runner Mechanics:** Fast-paced action with procedural challenges.
+- **Dynamic Forging:** Tap the anvil perfectly to generate legendary items.
+- **AI Orchestration:** Real-time API and MCP logic managing performance and automation.
+
+## 🤖 Agent Orchestrator (ERC-8004 compatible)
+
+- **A2A Endpoint:** Standardized interaction paths exist at `/.well-known/agent-card.json`.
+- **MCP Active Endpoint:** Direct Model Context Protocol integration via `/api/mcp` for actions like ping, get_info, and command execution.
+- **Primary Agent Interface:** Central agent communication at `/api/agent`.
+
+### Capabilities 
+`warp-racing`, `real-time-automation`, `multi-track-management`, `speed-optimization`, `competitive-orchestration`, `ecosystem-coordination`
+
+### Skills
+- **Anvil Mechanics:** Real-time forging mechanics, timing, and material processing.
+- **Rush Mode:** Manage and synchronize endless runner intense sessions.
+- **Performance Optimization:** Analyze and optimize racing performance, timing, and strategy.
 
 ## ⚡ Setup & Development
 
-This application is built with React, Vite, TailwindCSS (v4), and Express.
+Ensure you have a recent version of Node installed. 
 
-### Scripts
-- `npm run dev`: Starts the local development environment using `tsx` and sets up a Vite middleware wrapper around Express supporting dynamic active game endpoints.
-- `npm run build`: Bundles the output for deployment, utilizing `esbuild` to compile the Express backend into `dist/server.cjs`.
-- `npm run start`: Serves the fully bundled application locally in production mode.
-
-## 🤖 Anvil Rush Orchestrator (Agent)
-
-Mythic Anvil Rush ships with a deeply integrated, ERC-8004 standard active AI Agent. This agent helps manage forging automation, tracks survival rushes, and maintains high-intensity operations across the realm. 
-
-### Key Capabilities
-- **A2A Endpoint:** Standardized interaction paths available via `/.well-known/agent-card.json`.
-- **MCP Active Endpoint:** Direct model context protocol integration with a live agent to execute `ping`, `get_info`, and dynamic action streams at `/api/mcp`.
-- **Primary Agent Interface:** API checkouts at `/api/agent`.
-
-## 🛠 Built By
-
-Builder: `bc_xhh7du90`
-Protocol Standard: `ERC-8021` and `ERC-8004` natively.
-
-Have fun forging legends!
+This repository leverages Next.js 14 App Router formatting for the API routes.
+Run the local dev server and connect your MCP clients to `http://localhost:3000/api/mcp`.
