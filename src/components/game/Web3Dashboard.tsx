@@ -19,15 +19,6 @@ export function Web3Dashboard({ score }: { score?: number }) {
     connect({ connector: injected() });
   };
 
-  const handleSayGM = () => {
-     if (!address) return;
-     sendTransaction({
-        to: address,
-        value: parseEther('0'),
-        data: generateGMTransactionData()
-     });
-  };
-
   const handleSIWE = async () => {
     if (!address || score === undefined) return;
     try {
@@ -85,11 +76,6 @@ export function Web3Dashboard({ score }: { score?: number }) {
                   {isPending ? 'SIGNING...' : 'SIGN & RECORD ON-CHAIN'}
                </Button>
             )}
-            
-            <Button variant="secondary" onClick={handleSayGM} disabled={isPending} className="w-full py-3 bg-white/5 border border-white/10 rounded-xl font-bold text-xs hover:bg-white/10 flex items-center justify-center gap-2 text-white/80">
-               <Send size={14} />
-               SAY GM ON-CHAIN <span className="opacity-50 text-[10px] ml-2">0.001 ETH</span>
-            </Button>
             
             <Button variant="ghost" size="sm" onClick={() => disconnect()} className="text-[10px] text-white/40 uppercase tracking-widest mt-2 hover:text-white/80">
                Disconnect

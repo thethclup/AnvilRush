@@ -4,11 +4,25 @@ import { HUD } from './components/game/HUD';
 import { ForgeMinigame } from './components/game/ForgeMinigame';
 import { Button } from './components/ui/Button';
 import { Web3Dashboard } from './components/game/Web3Dashboard';
-import { Hammer } from 'lucide-react';
+import { Hammer, Sun } from 'lucide-react';
 import { useEffect } from 'react';
+import { useAccount, useSendTransaction } from 'wagmi';
+import { generateGMTransactionData } from './lib/erc8021';
+import { parseEther } from 'viem';
 
 function GameOverlay() {
   const { gameState, score, multiplier, highestScore, canvasRef, startGame, jump, finishForging } = useGameEngine();
+  const { isConnected } = useAccount();
+  const { sendTransaction } = useSendTransaction();
+
+  const sendGMTransaction = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    sendTransaction({
+      to: '0xcD0dd3716C5561De47a24949335dF8a8CD8F71a3',
+      value: parseEther('0'),
+      data: generateGMTransactionData()
+    });
+  };
 
   // Prevent default touch behaviors like scrolling to allow smooth jumping
   useEffect(() => {
@@ -70,6 +84,16 @@ function GameOverlay() {
                         <p className="text-4xl font-bold font-mono text-orange-500">{score}<span className="text-sm text-white/40 ml-1">m</span></p>
                       </div>
                       <Web3Dashboard score={score} />
+                      {isConnected && (
+                        <div className="flex justify-center mt-4">
+                          <button 
+                            onClick={sendGMTransaction}
+                            className="px-3 py-2 rounded-lg bg-[#E8A020]/20 hover:bg-[#E8A020]/30 border border-[#E8A020]/40 text-[#E8A020] transition-colors flex items-center gap-2 font-['Cinzel'] text-xs font-bold"
+                          >
+                            <Sun size={16} /> SAY GM
+                          </button>
+                        </div>
+                      )}
                    </div>
                  )}
 
@@ -80,6 +104,16 @@ function GameOverlay() {
                          <p className="text-sm font-bold text-white mb-2">Become a Legend.</p>
                       </div>
                       <Web3Dashboard />
+                      {isConnected && (
+                        <div className="flex justify-center mt-4">
+                          <button 
+                            onClick={sendGMTransaction}
+                            className="px-3 py-2 rounded-lg bg-[#E8A020]/20 hover:bg-[#E8A020]/30 border border-[#E8A020]/40 text-[#E8A020] transition-colors flex items-center gap-2 font-['Cinzel'] text-xs font-bold"
+                          >
+                            <Sun size={16} /> SAY GM
+                          </button>
+                        </div>
+                      )}
                    </div>
                  )}
 
