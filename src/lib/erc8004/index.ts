@@ -4,7 +4,7 @@ import { Address, Hex } from 'viem';
  * ERC-8004: Trustless Agent Operations
  * 
  * Simplifies interacting with smart accounts and authorized agents
- * for on-chain game actions.
+ * for onchain game actions.
  */
 
 export interface AgentConfig {

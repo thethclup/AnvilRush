@@ -35,6 +35,9 @@ The Orchestrator provides a fully functional **Model Context Protocol (MCP)** en
 **Main Endpoint:** `https://anvilrush.vercel.app/api/mcp`
 **Standard:** 2024-11-05
 
+**Base MCP Integration:**
+This agent is also configured to utilize the official **Base MCP Server** (`https://mcp.base.org`). It supports Base account portfolio management, x402 payments, swapping, signing, and integration with Base native plugins like Morpho, Moonwell, Uniswap, and Virtuals.
+
 **Connecting an MCP Client:**
 1. Point your MCP inspector or client application to `https://anvilrush.vercel.app/api/mcp`.
 2. The server will natively respond to all JSON-RPC `{"jsonrpc": "2.0", "method": "..."}` payloads including `initialize`, `tools/list`, `prompts/list`, and `resources/list`. 

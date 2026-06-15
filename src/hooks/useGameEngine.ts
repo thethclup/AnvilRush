@@ -33,6 +33,7 @@ export function useGameEngine() {
   
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const requestRef = useRef<number>(0);
+  const lastScoreRef = useRef<number>(0);
   
   // Game Entities State (Refs for performance to avoid re-renders on every frame)
   const runner = useRef<Runner>({ y: 0, vy: 0, isJumping: false, score: 0, multiplier: 1 });
@@ -45,6 +46,7 @@ export function useGameEngine() {
     setScore(0);
     setMultiplier(1);
     setSpeed(5);
+    lastScoreRef.current = 0;
     runner.current = { y: 0, vy: 0, isJumping: false, score: 0, multiplier: 1 };
     obstacles.current = [];
     anvils.current = [];
@@ -110,7 +112,11 @@ export function useGameEngine() {
 
       // Update Score
       runner.current.score += (speed / 60) * multiplier;
-      setScore(Math.floor(runner.current.score));
+      const newScoreFloor = Math.floor(runner.current.score);
+      if (newScoreFloor > lastScoreRef.current) {
+        lastScoreRef.current = newScoreFloor;
+        setScore(newScoreFloor);
+      }
 
       // Spawn Obstacles
       if (Math.random() < 0.01 * (speed / 5)) {

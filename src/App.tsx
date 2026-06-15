@@ -1,27 +1,47 @@
-import { Web3Provider } from './providers/Web3Provider';
+import { OnchainProvider } from './providers/OnchainProvider';
 import { useGameEngine } from './hooks/useGameEngine';
 import { HUD } from './components/game/HUD';
 import { ForgeMinigame } from './components/game/ForgeMinigame';
 import { Button } from './components/ui/Button';
-import { Web3Dashboard } from './components/game/Web3Dashboard';
+import { OnchainDashboard } from './components/game/OnchainDashboard';
 import { Hammer, Sun } from 'lucide-react';
 import { useEffect } from 'react';
-import { useAccount, useSendTransaction } from 'wagmi';
-import { generateGMTransactionData } from './lib/erc8021';
+import { useAccount, useSendTransaction, useSendCalls } from 'wagmi';
 import { parseEther } from 'viem';
 
 function GameOverlay() {
   const { gameState, score, multiplier, highestScore, canvasRef, startGame, jump, finishForging } = useGameEngine();
   const { isConnected } = useAccount();
-  const { sendTransaction } = useSendTransaction();
+  const { sendTransactionAsync } = useSendTransaction();
+  const { sendCallsAsync } = useSendCalls();
 
-  const sendGMTransaction = (e: React.MouseEvent) => {
+  const sendGMTransaction = async (e: React.MouseEvent) => {
     e.stopPropagation();
-    sendTransaction({
-      to: '0xcD0dd3716C5561De47a24949335dF8a8CD8F71a3',
+    // 'GM' in hex
+    const tx = {
+      to: '0xcD0dd3716C5561De47a24949335dF8a8CD8F71a3' as `0x${string}`,
       value: parseEther('0'),
-      data: generateGMTransactionData()
-    });
+      data: '0x474d' as `0x${string}`
+    };
+    
+    try {
+      if (sendCallsAsync) {
+        try {
+          await sendCallsAsync({
+            calls: [tx],
+            capabilities: {
+              dataSuffix: { optional: true }
+            }
+          });
+        } catch (callError) {
+          await sendTransactionAsync(tx);
+        }
+      } else {
+        await sendTransactionAsync(tx);
+      }
+    } catch (fallbackError) {
+      console.error("GM transaction failed", fallbackError);
+    }
   };
 
   // Prevent default touch behaviors like scrolling to allow smooth jumping
@@ -83,7 +103,7 @@ function GameOverlay() {
                       <div className="flex flex-col items-center justify-center bg-white/5 py-4 rounded-xl border border-white/10 mb-6">
                         <p className="text-4xl font-bold font-mono text-orange-500">{score}<span className="text-sm text-white/40 ml-1">m</span></p>
                       </div>
-                      <Web3Dashboard score={score} />
+                      <OnchainDashboard score={score} />
                       {isConnected && (
                         <div className="flex justify-center mt-4">
                           <button 
@@ -103,7 +123,7 @@ function GameOverlay() {
                          <p className="text-sm text-white/60 mb-2">Run endlessly. Forge powerfully.</p>
                          <p className="text-sm font-bold text-white mb-2">Become a Legend.</p>
                       </div>
-                      <Web3Dashboard />
+                      <OnchainDashboard />
                       {isConnected && (
                         <div className="flex justify-center mt-4">
                           <button 
@@ -148,8 +168,8 @@ function GameOverlay() {
 
 export default function App() {
   return (
-    <Web3Provider>
+    <OnchainProvider>
       <GameOverlay />
-    </Web3Provider>
+    </OnchainProvider>
   );
 }

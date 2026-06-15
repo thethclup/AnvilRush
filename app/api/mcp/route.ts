@@ -57,7 +57,8 @@ export async function GET() {
       "multi-track-management",
       "speed-optimization",
       "competitive-orchestration",
-      "ecosystem-coordination"
+      "ecosystem-coordination",
+      "base-mcp"
     ],
     tools: TOOLS,
     prompts: PROMPTS,

@@ -8,7 +8,7 @@ This file defines the primary AI Agent running inside the Mythic Anvil Rush plat
 - **Status:** Active / Online
 - **Wallet Address:** `0xe157F1F5e12adB38Ba013683E9Ce24efe21e5bA6`
 - **Supported Chains:** `eip155:8453` (Base Mainnet)
-- **Role:** Master Orchestrator for forging mechanics, high-intensity survival mode automation, and on-chain action verification.
+- **Role:** Master Orchestrator for forging mechanics, high-intensity survival mode automation, and onchain action verification.
 
 ## MCP Capabilities
 
@@ -18,6 +18,13 @@ The orchestrator utilizes the Model Context Protocol (MCP) to accept active comm
 2. **Execute Command:** `POST /api/mcp`
    - Accepts JSON bodies like `{ "action": "status" }`, `{ "action": "execute", "command": "RUSH_MODE" }`, or `{ "action": "get_info" }`.
 3. **Agent Status Retrieval:** `GET /api/agent`
+
+## Base MCP Capabilities
+
+This agent connects to the **Base MCP Server** (`https://mcp.base.org`) to execute onchain Base account operations.
+- **Wallet & Portfolio:** Access the primary agent wallet (`0xe157F1F5e12adB38Ba013683E9Ce24efe21e5bA6`).
+- **Capabilities:** Perform sending, swapping, signing, x402 payments, and batched contract calls (EIP-5792).
+- **Plugins:** Compatible with native plugins (Morpho, Moonwell, Uniswap, etc.) for deeper DeFi integrations via the Base MCP route.
 
 ## Interaction Directives
 

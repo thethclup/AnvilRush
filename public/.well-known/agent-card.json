@@ -22,6 +22,11 @@
       "id": "performance-optimization",
       "name": "Performance Optimization",
       "description": "Analyze and optimize racing performance, timing and strategy in real-time."
+    },
+    {
+      "id": "base-mcp",
+      "name": "Base MCP",
+      "description": "Base MCP integration for wallet, portfolio, sending, swapping, signing, x402 payments, batched contract calls, and transaction history."
     }
   ],
   "services": [
@@ -47,7 +52,8 @@
     "multi-track-management",
     "speed-optimization",
     "competitive-orchestration",
-    "ecosystem-coordination"
+    "ecosystem-coordination",
+    "base-mcp"
   ],
   "supportedChains": ["eip155:8453"],
   "x402Support": false,
