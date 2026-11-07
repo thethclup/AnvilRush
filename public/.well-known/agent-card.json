@@ -1,6 +1,6 @@
 {
   "name": "Anvil Rush Orchestrator",
-  "description": "High-performance AI Agent specialized in warp racing mechanics, real-time automation, multi-track management, competitive optimization and ecosystem coordination on Base.",
+  "description": "High-performance AI Agent specialized in warp racing mechanics, real-time automation, multi-track management, competitive optimization and ecosystem coordination on Base Mainnet (Denim 200ms canonical blocks).",
   "version": "1.0.0",
   "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
   "image": "https://anvilrush.vercel.app/logo.png",
@@ -53,7 +53,8 @@
     "speed-optimization",
     "competitive-orchestration",
     "ecosystem-coordination",
-    "base-mcp"
+    "base-mcp",
+    "base-denim-200ms"
   ],
   "supportedChains": ["eip155:8453"],
   "x402Support": false,

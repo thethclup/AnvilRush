@@ -20,7 +20,7 @@ async function startServer() {
       name: "Anvil Rush MCP Endpoint",
       status: "active",
       description: "Active MCP server for Anvil Rush Orchestrator Agent",
-      capabilities: ["anvil-mechanics", "rush-mode", "forging-automation"],
+      capabilities: ["anvil-mechanics", "rush-mode", "forging-automation", "base-mcp", "base-denim-200ms"],
       tools: [
         {
           name: "forge_item",
@@ -77,7 +77,10 @@ async function startServer() {
           result = {
             name: "Anvil Rush Orchestrator",
             wallet: "0xe157F1F5e12adB38Ba013683E9Ce24efe21e5bA6",
-            platform: "Base",
+            platform: "Base Mainnet (Denim)",
+            network: "eip155:8453",
+            blockTimeMs: 200,
+            flashblocks: false,
             version: "1.0.0"
           };
           break;
@@ -112,7 +115,9 @@ async function startServer() {
       name: "Anvil Rush Orchestrator",
       status: "active",
       wallet: "0xe157F1F5e12adB38Ba013683E9Ce24efe21e5bA6",
-      platform: "Anvil Rush",
+      platform: "Base Mainnet (Denim 200ms)",
+      network: "eip155:8453",
+      blockTimeMs: 200,
       version: "1.0.0"
     });
   });

@@ -58,7 +58,8 @@ export async function GET() {
       "speed-optimization",
       "competitive-orchestration",
       "ecosystem-coordination",
-      "base-mcp"
+      "base-mcp",
+      "base-denim-200ms"
     ],
     tools: TOOLS,
     prompts: PROMPTS,
@@ -211,7 +212,10 @@ export async function POST(req: Request) {
         result = {
           name: "Anvil Rush Orchestrator",
           wallet: "0xe157F1F5e12adB38Ba013683E9Ce24efe21e5bA6",
-          platform: "Base",
+          platform: "Base Mainnet (Denim)",
+          network: "eip155:8453",
+          blockTimeMs: 200,
+          flashblocks: false,
           version: "1.0.0"
         };
         break;

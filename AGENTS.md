@@ -7,8 +7,9 @@ This file defines the primary AI Agent running inside the Mythic Anvil Rush plat
 - **Name:** Anvil Rush Orchestrator
 - **Status:** Active / Online
 - **Wallet Address:** `0xe157F1F5e12adB38Ba013683E9Ce24efe21e5bA6`
-- **Supported Chains:** `eip155:8453` (Base Mainnet)
-- **Role:** Master Orchestrator for forging mechanics, high-intensity survival mode automation, and onchain action verification.
+- **Supported Chains:** `eip155:8453` (Base Mainnet - Denim Activated)
+- **Block Time / Architecture:** 200ms Native Canonical Blocks (Denim protocol upgrade; Flashblocks retired)
+- **Role:** Master Orchestrator for forging mechanics, high-intensity survival mode automation, and 200ms canonical onchain action verification.
 
 ## MCP Capabilities
 

@@ -15,7 +15,8 @@ The project features a specialized high-performance AI Agent (the Orchestrator) 
 - **Framework:** Next.js 14 (App Router configured), React, Vite
 - **Styling:** Tailwind CSS v4
 - **Agent Protocol:** ERC-8004 Registration Standard
-- **Network:** Base (eip155:8453)
+- **Network:** Base Mainnet (Denim - 200ms Native Canonical Blocks, eip155:8453)
+- **Denim Architecture:** Full canonical 200ms blocks without Flashblocks dependencies
 - **Data & Transport:** Model Context Protocol (MCP)
 
 ## 🤖 Agent Registration (ERC-8004)

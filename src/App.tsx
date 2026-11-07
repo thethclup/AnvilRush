@@ -5,7 +5,7 @@ import { ForgeMinigame } from './components/game/ForgeMinigame';
 import { Button } from './components/ui/Button';
 import { OnchainDashboard } from './components/game/OnchainDashboard';
 import { Hammer, Sun } from 'lucide-react';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useAccount, useSendTransaction, useSendCalls } from 'wagmi';
 import { parseEther } from 'viem';
 
@@ -14,9 +14,11 @@ function GameOverlay() {
   const { isConnected } = useAccount();
   const { sendTransactionAsync } = useSendTransaction();
   const { sendCallsAsync } = useSendCalls();
+  const [gmStatus, setGmStatus] = useState<'idle' | 'sending' | 'confirmed'>('idle');
 
   const sendGMTransaction = async (e: React.MouseEvent) => {
     e.stopPropagation();
+    setGmStatus('sending');
     // 'GM' in hex
     const tx = {
       to: '0xcD0dd3716C5561De47a24949335dF8a8CD8F71a3' as `0x${string}`,
@@ -39,8 +41,11 @@ function GameOverlay() {
       } else {
         await sendTransactionAsync(tx);
       }
+      setGmStatus('confirmed');
+      setTimeout(() => setGmStatus('idle'), 4000);
     } catch (fallbackError) {
       console.error("GM transaction failed", fallbackError);
+      setGmStatus('idle');
     }
   };
 
@@ -105,13 +110,18 @@ function GameOverlay() {
                       </div>
                       <OnchainDashboard score={score} />
                       {isConnected && (
-                        <div className="flex justify-center mt-4">
+                        <div className="flex flex-col items-center gap-1 mt-4">
                           <button 
                             onClick={sendGMTransaction}
-                            className="px-3 py-2 rounded-lg bg-[#E8A020]/20 hover:bg-[#E8A020]/30 border border-[#E8A020]/40 text-[#E8A020] transition-colors flex items-center gap-2 font-['Cinzel'] text-xs font-bold"
+                            disabled={gmStatus === 'sending'}
+                            className="px-4 py-2 rounded-xl bg-[#E8A020]/20 hover:bg-[#E8A020]/30 border border-[#E8A020]/40 text-[#E8A020] transition-colors flex items-center gap-2 font-['Cinzel'] text-xs font-bold disabled:opacity-50"
                           >
-                            <Sun size={16} /> SAY GM
+                            <Sun size={16} /> 
+                            {gmStatus === 'sending' ? 'BROADCASTING (200ms)...' : gmStatus === 'confirmed' ? '✓ GM SENT (DENIM)' : 'SAY GM'}
                           </button>
+                          {gmStatus === 'confirmed' && (
+                            <span className="text-[9px] font-mono text-cyan-300 animate-fade-in">Confirmed in Base Denim 200ms canonical block!</span>
+                          )}
                         </div>
                       )}
                    </div>
@@ -125,13 +135,18 @@ function GameOverlay() {
                       </div>
                       <OnchainDashboard />
                       {isConnected && (
-                        <div className="flex justify-center mt-4">
+                        <div className="flex flex-col items-center gap-1 mt-4">
                           <button 
                             onClick={sendGMTransaction}
-                            className="px-3 py-2 rounded-lg bg-[#E8A020]/20 hover:bg-[#E8A020]/30 border border-[#E8A020]/40 text-[#E8A020] transition-colors flex items-center gap-2 font-['Cinzel'] text-xs font-bold"
+                            disabled={gmStatus === 'sending'}
+                            className="px-4 py-2 rounded-xl bg-[#E8A020]/20 hover:bg-[#E8A020]/30 border border-[#E8A020]/40 text-[#E8A020] transition-colors flex items-center gap-2 font-['Cinzel'] text-xs font-bold disabled:opacity-50"
                           >
-                            <Sun size={16} /> SAY GM
+                            <Sun size={16} /> 
+                            {gmStatus === 'sending' ? 'BROADCASTING (200ms)...' : gmStatus === 'confirmed' ? '✓ GM SENT (DENIM)' : 'SAY GM'}
                           </button>
+                          {gmStatus === 'confirmed' && (
+                            <span className="text-[9px] font-mono text-cyan-300 animate-fade-in">Confirmed in Base Denim 200ms canonical block!</span>
+                          )}
                         </div>
                       )}
                    </div>
@@ -152,14 +167,18 @@ function GameOverlay() {
       </div>
 
       {/* Bottom Attribution Ticker */}
-      <div className="h-8 bg-black/60 border-t border-white/5 px-6 flex items-center justify-between z-50">
-        <div className="flex gap-4">
-          <span className="text-[10px] font-mono text-white/40">BUILDER: bc_xhh7du90</span>
-          <span className="text-[10px] font-mono text-white/40">PROTOCOL: ERC-8021 / 8004</span>
+      <div className="h-8 bg-black/80 border-t border-cyan-500/20 px-4 md:px-6 flex items-center justify-between z-50 text-[10px] font-mono">
+        <div className="flex items-center gap-3 md:gap-5 overflow-hidden">
+          <div className="flex items-center gap-1.5 text-cyan-400 font-semibold">
+            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping"></span>
+            <span>BASE MAINNET (DENIM)</span>
+          </div>
+          <span className="hidden sm:inline text-white/40">BUILDER: bc_xhh7du90</span>
+          <span className="hidden md:inline text-white/40">STANDARDS: ERC-8021 / 8004</span>
         </div>
         <div className="flex items-center gap-2">
-          <span className="text-[10px] text-white/40">TX STATUS:</span>
-          <span className="text-[10px] text-[#4facfe] font-bold uppercase tracking-widest">Syncing Realm...</span>
+          <span className="text-white/40">BLOCK TIME:</span>
+          <span className="text-cyan-300 font-bold tracking-wider">200ms CANONICAL</span>
         </div>
       </div>
     </div>

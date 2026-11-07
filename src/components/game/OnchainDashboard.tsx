@@ -59,10 +59,11 @@ export function OnchainDashboard({ score }: { score?: number }) {
   if (isReconnecting || isConnecting) {
      return (
        <div className="flex flex-col items-center gap-4 py-4 w-full">
-         <ShieldAlert className="text-white/40 mb-2 animate-pulse" size={32} />
-         <p className="text-[10px] text-white/50 uppercase tracking-widest text-center max-w-xs mb-4">
-           Connecting to base mainnet...
+         <ShieldAlert className="text-cyan-400 mb-2 animate-pulse" size={32} />
+         <p className="text-[10px] text-cyan-300 font-mono uppercase tracking-widest text-center max-w-xs mb-2">
+           Connecting to Base Mainnet (Denim)...
          </p>
+         <span className="text-[9px] text-white/40 font-mono">200ms Native Canonical Blocks</span>
        </div>
      );
   }
@@ -71,9 +72,15 @@ export function OnchainDashboard({ score }: { score?: number }) {
      return (
        <div className="flex flex-col items-center gap-4 py-4 w-full">
          <ShieldAlert className="text-white/40 mb-2" size={32} />
-         <p className="text-[10px] text-white/50 uppercase tracking-widest text-center max-w-xs mb-4">
-           Connect to base mainnet to record your epic runs.
-         </p>
+         <div className="text-center mb-4">
+           <p className="text-[10px] text-white/50 uppercase tracking-widest max-w-xs mb-1">
+             Connect to Base Mainnet to record your epic runs.
+           </p>
+           <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-[9px] font-mono text-cyan-300">
+             <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+             DENIM 200ms CANONICAL BLOCKS
+           </div>
+         </div>
          <div className="flex flex-col gap-2 w-full">
            {connectors.map((connector) => (
              <Button 
@@ -92,31 +99,42 @@ export function OnchainDashboard({ score }: { score?: number }) {
   }
 
   return (
-      <div className="flex flex-col items-center gap-4 py-4 w-full">
-         <div className="flex items-center justify-between w-full mb-4">
+      <div className="flex flex-col items-center gap-3 py-4 w-full">
+         <div className="flex items-center justify-between w-full mb-2 bg-black/40 px-3 py-2 rounded-xl border border-white/5">
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-              <span className="text-[10px] font-mono text-white/60">BASE MAINNET</span>
+              <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse shadow-[0_0_8px_#22d3ee]"></div>
+              <div className="flex flex-col">
+                <span className="text-[10px] font-mono font-bold text-white tracking-wider">BASE MAINNET</span>
+                <span className="text-[8px] font-mono text-cyan-400">DENIM • 200ms CANONICAL</span>
+              </div>
             </div>
-            <span className="text-[10px] font-mono text-white/40">{address?.slice(0,6)}...{address?.slice(-4)}</span>
+            <span className="text-[10px] font-mono text-white/50 bg-white/5 px-2 py-1 rounded-md">{address?.slice(0,6)}...{address?.slice(-4)}</span>
          </div>
          
-         <div className="flex flex-col gap-3 w-full">
+         <div className="flex flex-col gap-2.5 w-full">
             {score !== undefined && (
-               <Button variant="mythic" onClick={handleSIWE} disabled={isPending} className="w-full py-3 bg-[#4facfe] rounded-xl font-bold text-xs flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(79,172,254,0.3)] hover:bg-[#4facfe]/90">
+               <Button 
+                 variant="mythic" 
+                 onClick={handleSIWE} 
+                 disabled={isPending} 
+                 className="w-full py-3 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl font-bold text-xs flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(34,211,238,0.35)] hover:from-cyan-400 hover:to-blue-500 text-white"
+               >
                   <FileSignature size={14} />
-                  {isPending ? 'SIGNING...' : 'SIGN & RECORD ONCHAIN'}
+                  {isPending ? 'CONFIRMING (200ms DENIM)...' : 'RECORD ONCHAIN (DENIM)'}
                </Button>
             )}
             
-            <Button variant="ghost" size="sm" onClick={() => disconnect()} className="text-[10px] text-white/40 uppercase tracking-widest mt-2 hover:text-white/80">
+            <Button variant="ghost" size="sm" onClick={() => disconnect()} className="text-[10px] text-white/40 uppercase tracking-widest hover:text-white/80">
                Disconnect
             </Button>
 
             {isSuccess && (
-               <p className="text-[10px] font-mono text-center text-green-400 mt-2 uppercase tracking-widest">
-                 Tx Submitted!
-               </p>
+               <div className="flex flex-col items-center gap-1 p-2 rounded-lg bg-green-500/10 border border-green-500/30">
+                 <p className="text-[10px] font-mono text-center text-green-400 font-bold uppercase tracking-widest">
+                   ✓ Confirmed in 200ms Canonical Block
+                 </p>
+                 <span className="text-[8px] font-mono text-white/40">Base Denim Finalized</span>
+               </div>
             )}
          </div>
       </div>

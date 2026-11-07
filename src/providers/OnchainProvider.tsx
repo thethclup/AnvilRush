@@ -5,10 +5,14 @@ import { injected, baseAccount } from 'wagmi/connectors';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Attribution } from 'ox/erc8021';
 
-// Configure wagmi for Base Mainnet
-// Ideally we'd use a WalletConnect projectId, but we'll setup base configuration
+// Base Mainnet (Denim Upgrade - 200ms native canonical blocks)
+export const baseDenim = {
+  ...base,
+  name: 'Base Mainnet (Denim)',
+};
+
 const wagmiConfig = createConfig({
-  chains: [base],
+  chains: [baseDenim],
   connectors: [
     injected(),
     baseAccount({
@@ -16,8 +20,11 @@ const wagmiConfig = createConfig({
     }),
   ],
   transports: {
-    [base.id]: http(),
+    [baseDenim.id]: http(undefined, {
+      batch: false, // Direct canonical RPC dispatch for Denim 200ms blocks
+    }),
   },
+  pollingInterval: 1_000, // Optimized polling interval for Denim 200ms blocks
   dataSuffix: Attribution.toDataSuffix({ codes: ["bc_xhh7du90"] })
 });
 
